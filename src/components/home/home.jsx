@@ -20,6 +20,8 @@ function Home() {
     const handleSummary = (e) => {
         console.log('click');
         console.log(e.summary);
+        localStorage.setItem('image', e.image.medium);
+        localStorage.setItem('originalImage', e.image.original);
         localStorage.setItem('summary', e.summary);
     }
 
@@ -41,7 +43,7 @@ function Home() {
         <div className="container mx-auto">
             <div className='items-center flex justify-center'> 
                 <h1 className='mb-4 sm:text-5xl text-3xl underline rounded-md hover:bg-slate-500 w-fit p-4'>
-                    Movie Lists
+                    Movie List
                 </h1>
             </div>
             {loading ? (
@@ -50,7 +52,7 @@ function Home() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     {data.map((item, index) => (
                         <div key={index} className="border-2 border-black p-2 hover:bg-slate-700">
-                            <Link to="/ticket-booking" onClick={() => handleClick(item.show.name)}>
+                            <Link to="/summary" onClick={() => handleSummary(item.show)}>
                                 {item.show.image ? (
                                     <Image
                                         src={item.show.image.medium}
@@ -67,7 +69,21 @@ function Home() {
                             </Link>
                             <div>
                                 <h1 className="text-xl font-semibold mb-2">{item.show.name}</h1>
-                                <p className="text-gray-500 mb-2">Rating: {
+                                <h3 className="text-m font-semibold mb-2">
+                                Genre:-
+                                {
+                                    item.show.genres?(
+                                        item.show.genres[0]
+                                    ):(
+                                        <>NA</>
+                                    )
+                                }
+                                ,
+                                {item.show.genres[1]&&(
+                                    item.show.genres[1]
+                                )}
+                                </h3>
+                                <p className="text-gray-900 mb-2">Rating: {
                                     item.show.rating.average ? (
                                         item.show.rating.average
                                     ) : (

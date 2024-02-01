@@ -2,16 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { gettingData } from '../api/api_integration';
 import { Link } from 'react-router-dom';
 import Button from '../common/button';
+import Image from '../common/image';
 
 
 
 function Summary() {
     const [movieSummary, setMovieSummary] = useState('');
+    const [image, setImage] = useState('');
+    const [originalImage, setOriginalImage] = useState('');
     const [showTicketForm, setShowTicketForm] = useState(false);
 
     useEffect(() => {
         const name = localStorage.getItem('summary');
         console.log(name);
+        const image = localStorage.getItem('image');
+        setImage(image);
+        const originalImage = localStorage.getItem('originalImage');
+        setOriginalImage(originalImage);
+        console.log(originalImage);
         setMovieSummary(name);
     }, []);
 
@@ -51,9 +59,16 @@ function Summary() {
     return (
         <div>
             {movieSummary ? (
-                <div className='justify-center items-center flex flex-col space-y-4 '>
-                    <p className='text-gray-700 w-96 border-2 rounded-md p-4' dangerouslySetInnerHTML={{ __html: movieSummary }} />
-                    <Button onClick={handleBookTicketsClick}>Book your tickets here!</Button>
+                <div className='justify-around items-center flex '>
+                    {
+                        image && (
+                            <Image src={image} alt='movie' className='' />
+                        )
+                    }
+                    <div className='space-y-4 flex flex-col'>
+                        <p className='text-gray-700 w-96 border-2 rounded-md p-4' dangerouslySetInnerHTML={{ __html: movieSummary }} />
+                        <Button onClick={handleBookTicketsClick}>Book your tickets here!</Button>
+                    </div>
                     {showTicketForm && (
                         <div className="fixed inset-0 flex items-center justify-center">
                             <div className="bg-black bg-opacity-0 absolute">
@@ -109,7 +124,7 @@ function Summary() {
                                         </button>
                                     </form>
                                 </div>
-                                <button className="border-2 border-black rounded-md" onClick={handleCancelClick}>
+                                <button className="border-2 bg-amber-500 border-black rounded-md" onClick={handleCancelClick}>
                                     Cancel
                                 </button>
                             </div>
