@@ -14,7 +14,14 @@ function Home() {
         console.log('click');
         console.log(itemName);
         localStorage.setItem('name', itemName);
+        
     };
+
+    const handleSummary = (itemSummary) => {
+        console.log('click');
+        console.log(itemSummary);
+        localStorage.setItem('summary', itemSummary);
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -62,7 +69,7 @@ function Home() {
                                         <>NA</>
                                     )
                                 }</p>
-                                <Link>
+                                <Link to="/summary" onClick={() => handleClick(item.show.summary)}>
                                     <Button className='mb-2'>Click here for more information</Button>
                                 </Link>
                                 <Button onClick={() => handleClick(item.show.name)}>Book Your ticket</Button>
