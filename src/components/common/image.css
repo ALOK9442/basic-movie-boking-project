@@ -1,0 +1,19 @@
+/* image.css */
+
+.group {
+    position: relative;
+  }
+  
+  .gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top right, #ffd700, #ff0000, #800080);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .group:hover .gradient-overlay {
+    opacity: 1;
+    background: linear-gradient(to top right, #ffd700, #ff0000, #800080);
+  }
+  
