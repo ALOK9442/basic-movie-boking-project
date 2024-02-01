@@ -9,7 +9,7 @@ export default function Button({
     ...props
 }) {
   return (
-    <button className={` bg-amber-500 border border-white rounded-md text-white p-3 ${className}`}
+    <button className={`bg-transparent hover:bg-amber-500 border border-black rounded-md text-black p-3 ${className}`}
      onClick={onClick}
      {...props}
      >

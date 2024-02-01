@@ -10,7 +10,8 @@ function Image({
     <img
       src={src}
       alt={alt}
-      className={`border-2 border-black p-3 ${className}`}
+      className={`border-2 border-black p-1 bg-amber-500 ${className}`}
+      onClick={onClick}
       {...props}
     />
   )

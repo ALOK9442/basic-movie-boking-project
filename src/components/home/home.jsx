@@ -1,19 +1,25 @@
 import React from 'react';
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { gettingData } from '../api/api_integration';
 import Image from '../common/image';
 import './home.css';
+import { Link } from 'react-router-dom';
+import Button from '../common/button';
 
 function Home() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const handleClick = (itemName) => {
+        console.log('click');
+        console.log(itemName);
+        localStorage.setItem('name', itemName);
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await gettingData();
-                // const ans = await response.json();
-                console.log(response[0].show.language);
                 setData(response);
                 setLoading(false);
             } catch (error) {
@@ -23,38 +29,50 @@ function Home() {
 
         fetchData();
     }, []);
-    console.log(data);
 
     return (
-        <div>
+        <div className="container mx-auto mt-8">
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     {data.map((item, index) => (
-                        <div key={index}>
-                            <div className='flex items-center'>
-                                {item.show.image && (
-                                    <div>
-                                    <Image src={item.show.image.medium} alt={`item.show.name`} 
+                        <div key={index} className="border-2 border-black p-2 hover:bg-slate-700">
+                            <Link to="/ticket-booking" onClick={() => handleClick(item.show.name)}>
+                                {item.show.image ? (
+                                    <Image
+                                        src={item.show.image.medium}
+                                        alt={item.show.name}
+                                        className="w-full object-cover mb-4"
                                     />
-
-                                    <h1>
-                                        {item.show.name}
-                                    </h1>
-                                   <h1>
-                                   {item.show.rating.average}
-                                   </h1>
-                                    </div>
+                                ) : (
+                                    <Image
+                                        src="https://via.placeholder.com/210x295?text=No+Image"
+                                        alt={item.show.name}
+                                        className="w-full object-cover mb-4"
+                                    />
                                 )}
+                            </Link>
+                            <div>
+                                <h1 className="text-xl font-semibold mb-2">{item.show.name}</h1>
+                                <p className="text-gray-500 mb-2">Rating: {
+                                    item.show.rating.average ? (
+                                        item.show.rating.average
+                                    ) : (
+                                        <>NA</>
+                                    )
+                                }</p>
+                                <Link>
+                                    <Button className='mb-2'>Click here for more information</Button>
+                                </Link>
+                                <Button onClick={() => handleClick(item.show.name)}>Book Your ticket</Button>
                             </div>
                         </div>
                     ))}
-                    <h1 className='text-bold text-amber-500'>Home</h1>
                 </div>
             )}
         </div>
-    )
+    );
 }
 
-export default Home
+export default Home;
