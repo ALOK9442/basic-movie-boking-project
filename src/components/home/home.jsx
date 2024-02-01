@@ -14,13 +14,13 @@ function Home() {
         console.log('click');
         console.log(itemName);
         localStorage.setItem('name', itemName);
-        
+
     };
 
-    const handleSummary = (itemSummary) => {
+    const handleSummary = (e) => {
         console.log('click');
-        console.log(itemSummary);
-        localStorage.setItem('summary', itemSummary);
+        console.log(e.summary);
+        localStorage.setItem('summary', e.summary);
     }
 
     useEffect(() => {
@@ -38,7 +38,12 @@ function Home() {
     }, []);
 
     return (
-        <div className="container mx-auto mt-8">
+        <div className="container mx-auto">
+            <div className='items-center flex justify-center'> 
+                <h1 className='mb-4 sm:text-5xl text-3xl underline rounded-md hover:bg-slate-500 w-fit p-4'>
+                    Movie Lists
+                </h1>
+            </div>
             {loading ? (
                 <p>Loading...</p>
             ) : (
@@ -69,10 +74,9 @@ function Home() {
                                         <>NA</>
                                     )
                                 }</p>
-                                <Link to="/summary" onClick={() => handleClick(item.show.summary)}>
+                                <Link to="/summary" onClick={() => handleSummary(item.show)}>
                                     <Button className='mb-2'>Click here for more information</Button>
                                 </Link>
-                                <Button onClick={() => handleClick(item.show.name)}>Book Your ticket</Button>
                             </div>
                         </div>
                     ))}
