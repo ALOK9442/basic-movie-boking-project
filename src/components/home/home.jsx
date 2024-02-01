@@ -23,6 +23,9 @@ function Home() {
         localStorage.setItem('image', e.image.medium);
         localStorage.setItem('originalImage', e.image.original);
         localStorage.setItem('summary', e.summary);
+        localStorage.setItem('scheduleTime', e.schedule.time);
+        localStorage.setItem('scheduleDate', e.schedule.days);
+        localStorage.setItem('genres', e.genres);
     }
 
     useEffect(() => {

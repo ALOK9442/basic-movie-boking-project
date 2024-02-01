@@ -11,6 +11,9 @@ function Summary() {
     const [image, setImage] = useState('');
     const [originalImage, setOriginalImage] = useState('');
     const [showTicketForm, setShowTicketForm] = useState(false);
+    const [time, setTime] = useState('');
+    const [day, setDay] = useState('');
+    const [genres, setGenres] = useState('');
 
     useEffect(() => {
         const name = localStorage.getItem('summary');
@@ -21,6 +24,12 @@ function Summary() {
         setOriginalImage(originalImage);
         console.log(originalImage);
         setMovieSummary(name);
+        const time = localStorage.getItem('scheduleTime');
+        setTime(time);
+        const day = localStorage.getItem('scheduleDate');
+        setDay(day);
+        const genres = localStorage.getItem('genres');
+        setGenres(genres);
     }, []);
 
     const handleBookTicketsClick = () => {
@@ -59,7 +68,7 @@ function Summary() {
     return (
         <div>
             {movieSummary ? (
-                <div className='justify-around items-center flex '>
+                <div className='justify-around items-center flex sm:flex-row flex-col'>
                     {
                         image && (
                             <Image src={image} alt='movie' className='' />
@@ -67,6 +76,31 @@ function Summary() {
                     }
                     <div className='space-y-4 flex flex-col'>
                         <p className='text-gray-700 w-96 border-2 rounded-md p-4' dangerouslySetInnerHTML={{ __html: movieSummary }} />
+                        <div className='flex border-2 rounded-md space-x-4'>
+                        <div className='space-x-2'>
+                            <p>
+                                {
+                                    time && (
+                                        <span className='text-gray-700'>Time: {time}</span>
+                                    )
+                                }
+                            </p>
+                            <p>
+                                {
+                                    day && (
+                                        <span className='text-gray-700'>Day: {day}</span>
+                                    )
+                                }
+                            </p>
+                            </div>
+                            <p>
+                                {
+                                    genres && (
+                                        <span className='text-gray-700'>Genre: {genres}</span>
+                                    )
+                                }
+                            </p>
+                        </div>
                         <Button onClick={handleBookTicketsClick}>Book your tickets here!</Button>
                     </div>
                     {showTicketForm && (
