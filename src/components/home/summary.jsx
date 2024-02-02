@@ -42,7 +42,7 @@ function Summary() {
 
     const [formData, setFormData] = useState({
         name: '',
-        email: '',
+        phoneNumber: '',
         numberOfTickets: 1,
     });
 
@@ -59,7 +59,7 @@ function Summary() {
         localStorage.setItem('bookingData', JSON.stringify(formData));
         setFormData({
             name: '',
-            email: '',
+            phoneNumber: '',
             numberOfTickets: 1,
         });
         setShowTicketForm(false);
@@ -124,12 +124,12 @@ function Summary() {
                                         </div>
 
                                         <div className="mb-4">
-                                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email:</label>
+                                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phoneNumber">Phone Number:</label>
                                             <input
-                                                type="email"
-                                                id="email"
-                                                name="email"
-                                                value={formData.email}
+                                                type="text"
+                                                id="phoneNumber"
+                                                name="phoneNumber"
+                                                value={formData.phoneNumber}
                                                 onChange={handleChange}
                                                 className="w-full border border-gray-300 p-2 rounded-md"
                                                 required
